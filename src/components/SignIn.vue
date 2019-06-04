@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <h3>Sign In</h3>
+    <div v-if="userCreated" class="success">User created sucessfully</div>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
       <v-text-field v-model="password" :rules="emailRules" label="Password" required></v-text-field>
@@ -14,6 +15,7 @@
 <script>
 export default {
   name: "SignIn",
+  props: ["userCreated"],
   data: () => ({
     valid: true,
     email: "",
@@ -27,4 +29,12 @@ export default {
 </script>
 
 <style scoped>
+div.success {
+  background: #55c1ff;
+  text-align: center;
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+}
 </style>

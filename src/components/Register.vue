@@ -1,6 +1,10 @@
 <template>
   <v-app>
+    <div v-if="loading" class="loading">
+      <h1>Loading</h1>
+    </div>
     <h3>Register</h3>
+    <div v-if="failure" class="failure">{{failureMessage}}</div>
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
       <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
@@ -19,15 +23,18 @@
 </template>
 
 <script>
-import axios from "axios";
 export default {
   name: "Register",
   data: () => ({
     valid: true,
-    name: "",
-    email: "",
-    password: "",
-    rePassword: "",
+    failure: false,
+    failureMessage: "",
+    status: 0,
+    loading: false,
+    name: "paulin",
+    email: "paulin@gmail.com",
+    password: "aA0123456789",
+    rePassword: "aA0123456789",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 10) || "Name must be less than 10 characters"
@@ -65,6 +72,7 @@ export default {
       this.rePassword = "";
     },
     validate() {
+      this.loading = true;
       if (
         this.name != "" &&
         this.email != "" &&
@@ -72,22 +80,43 @@ export default {
         this.rePassword != "" &&
         this.valid
       ) {
-        axios
-          .post("http://mywebsite/api/users", {
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: {
-              username: this.name,
-              pseudo: this.name,
-              email: this.email,
-              password: this.password
+        var requestBody = {
+          username: this.name,
+          pseudo: this.name,
+          email: this.email,
+          password: this.password
+        };
+        fetch("http://127.0.0.1:8000/api/users", {
+          method: "POST",
+          body: JSON.stringify(requestBody),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(res => {
+            this.status = res.status;
+            this.loading = false;
+            return res.json();
+          })
+          .then(res => {
+            console.log(res);
+            console.log(res.status);
+
+            if (this.status == 201) {
+              this.$emit("addUserSuccess");
+            } else {
+              this.failureMessage = res.message;
+              this.failure = true;
             }
           })
-          .then(res => console.log(res))
           .catch(err => {
-            console.log(err);
+            console.log(err.message);
+            this.failureMessage = err.message;
+            this.failure = true;
+            this.loading = false;
           });
+      } else {
+        this.loading = false;
       }
     }
   }
@@ -95,4 +124,26 @@ export default {
 </script>
 
 <style scoped>
+div.failure {
+  background: #ff5555;
+  text-align: center;
+  border-radius: 3px;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+}
+div.loading {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background: rgba(51, 51, 51, 0.3);
+  display: flex;
+  z-index: 10;
+}
+div.loading h1 {
+  margin: auto;
+  color: white;
+}
 </style>

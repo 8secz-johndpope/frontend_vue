@@ -6,8 +6,12 @@
     <v-btn @click="indexOfPage = 2">
       <span>Register</span>
     </v-btn>
-    <SignIn v-if="indexOfPage == 1"/>
-    <Register v-if="indexOfPage == 2"/>
+    <SignIn v-bind:userCreated="userCreated" v-if="indexOfPage == 1"/>
+    <Register
+      v-on:addUserSuccess="addUserSuccess"
+      v-on:addUserFailure="addUserFailure"
+      v-if="indexOfPage"
+    />
   </v-app>
 </template>
 
@@ -22,8 +26,16 @@ export default {
   },
   data() {
     return {
-      indexOfPage: 1
+      indexOfPage: 1,
+      userCreated: false,
+      loading: false
     };
+  },
+  methods: {
+    addUserSuccess() {
+      this.indexOfPage = 1;
+      this.userCreated = true;
+    }
   }
 };
 </script>
