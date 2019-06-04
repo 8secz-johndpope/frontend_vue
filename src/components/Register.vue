@@ -25,9 +25,10 @@
 <script>
 export default {
   name: "Register",
+  props: ["failure"],
   data: () => ({
     valid: true,
-    failure: false,
+    // failure: false,
     failureMessage: "",
     status: 0,
     loading: false,

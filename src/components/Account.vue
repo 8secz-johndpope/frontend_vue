@@ -1,17 +1,13 @@
 <template>
   <v-app>
-    <v-btn @click="indexOfPage = 1">
+    <v-btn @click="clickSignIn">
       <span>Sign In</span>
     </v-btn>
-    <v-btn @click="indexOfPage = 2">
+    <v-btn @click="clickRegister">
       <span>Register</span>
     </v-btn>
-    <SignIn v-bind:userCreated="userCreated" v-if="indexOfPage == 1"/>
-    <Register
-      v-on:addUserSuccess="addUserSuccess"
-      v-on:addUserFailure="addUserFailure"
-      v-if="indexOfPage"
-    />
+    <SignIn v-bind:userCreated="userCreated" v-bind:failure="failure" v-if="indexOfPage == 1"/>
+    <Register v-on:addUserSuccess="addUserSuccess" v-bind:failure="failure" v-if="indexOfPage"/>
   </v-app>
 </template>
 
@@ -28,13 +24,23 @@ export default {
     return {
       indexOfPage: 1,
       userCreated: false,
-      loading: false
+      failure: false
     };
   },
   methods: {
     addUserSuccess() {
       this.indexOfPage = 1;
       this.userCreated = true;
+    },
+    clickSignIn() {
+      this.indexOfPage = 1;
+      this.userCreated = false;
+      this.failure = false;
+    },
+    clickRegister() {
+      this.indexOfPage = 2;
+      this.userCreated = false;
+      this.failure = false;
     }
   }
 };
