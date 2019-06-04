@@ -60,6 +60,9 @@ export default {
             console.log(res);
             console.log(res.data);
             if (this.status == 201) {
+              localStorage.storedName = this.username;
+              localStorage.storedPass = this.password;
+              localStorage.storedJWT = res.data;
               this.$emit("authSuccess");
             } else {
               this.failureMessage = res.message;

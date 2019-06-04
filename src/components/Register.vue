@@ -10,12 +10,6 @@
       <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
       <v-text-field v-model="password" :rules="passRules" label="Password" required></v-text-field>
       <v-text-field v-model="rePassword" :rules="rePassRules" label="Re enter Password" required></v-text-field>
-      <v-checkbox
-        v-model="checkbox"
-        :rules="[v => !!v || 'You must agree to continue!']"
-        label="Do you agree?"
-        required
-      ></v-checkbox>
       <v-btn :disabled="!valid" color="success" @click="validate">Validate</v-btn>
       <v-btn color="error" @click="reset">Reset Form</v-btn>
     </v-form>
@@ -32,10 +26,10 @@ export default {
     failureMessage: "",
     status: 0,
     loading: false,
-    name: "paulin",
-    email: "paulin@gmail.com",
-    password: "aA0123456789",
-    rePassword: "aA0123456789",
+    name: "",
+    email: "",
+    password: "",
+    rePassword: "",
     nameRules: [
       v => !!v || "Name is required",
       v => (v && v.length <= 10) || "Name must be less than 10 characters"
