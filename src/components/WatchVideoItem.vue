@@ -1,39 +1,34 @@
 <template>
-  <v-flex xs12 sm6 md4 lg3 pa-2>
-    <v-card>
+  <v-flex xs12 sm6 lg4 xl3 pa-2>
+    <v-card flat hover>
       <v-img
         class="white--text"
         height="200px"
-        src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-      >
-        <v-container fill-height fluid>
-          <v-layout fill-height>
-            <v-flex xs12 align-end flexbox>
-              <span class="headline">{{video.name}}</span>
+        src="https://www.cnetfrance.fr/i/edit/2019/04/eso1644bsmall.jpg"
+      ></v-img>
+      <v-card-title class="bottomSectionCard blue-grey lighten-5 pt-1" fill-height>
+        <v-layout>
+          <v-flex xs10>
+            <v-flex xs12>
+              <v-layout align-content-start>
+                <div class="videoTitle grey--text text--darken-3">{{video.name}}</div>
+              </v-layout>
             </v-flex>
-          </v-layout>
-        </v-container>
-      </v-img>
-      <v-card-title>
-        <v-layout column>
-          <v-layout>
-            <div class="grey--text">{{video.duration}} sec</div>
-            <v-spacer></v-spacer>
-            <div class="grey--text">{{video.created_at}}</div>
-          </v-layout>
-          <div>
-            <div>{{video.description || 'No description...'}}</div>
-            <v-layout align-end justify-end>
-              <div class="grey--text">{{video.view}} views</div>
-            </v-layout>
-          </div>
+            <v-flex xs12>
+              <v-layout fill-height class="videoDetails">
+                <div class="grey--text text--darken-1">{{video.created_at.substring(0,10)}}</div>
+                <v-spacer></v-spacer>
+                <div class="grey--text text--darken-1">{{video.view}} views</div>
+                <v-spacer></v-spacer>
+                <div class="grey--text text--darken-1">{{video.duration}} sec</div>
+              </v-layout>
+            </v-flex>
+          </v-flex>
+          <v-flex xs2>
+            <v-btn fab flat color="blue" class="shareBtn">Share</v-btn>
+          </v-flex>
         </v-layout>
       </v-card-title>
-      <v-card-actions>
-        <v-btn flat color="blue">View</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn flat color="grey">Share</v-btn>
-      </v-card-actions>
     </v-card>
   </v-flex>
 </template>
@@ -54,4 +49,21 @@ export default {
 </script>
 
 <style scoped>
+.videoTitle {
+  font-size: 1.2rem;
+}
+.videoDetails {
+  font-size: 0.8rem;
+}
+/* .bottomSectionCard {
+  background: grey;
+  color: white;
+  flex-direction: column;
+  align-items: baseline;
+  align-content: space-between;
+} */
+.shareBtn {
+  height: 100%;
+  width: 100%;
+}
 </style>

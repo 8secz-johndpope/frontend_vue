@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="loadVideos" color="success" class="btn_allWidth">
+    <v-btn @click="loadVideos" color="success" block>
       <span>Load videos</span>
     </v-btn>
     <div>

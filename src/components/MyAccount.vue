@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="clickDisconnect" color="error" class="btn_allWidth">
+    <v-btn @click="clickDisconnect" color="error" block>
       <span>Disconnect</span>
     </v-btn>
     <div>

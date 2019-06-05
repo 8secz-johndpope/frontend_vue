@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <div>
     <div v-if="loading" class="loading">
       <h1>Loading</h1>
     </div>
@@ -13,7 +13,7 @@
       <v-btn :disabled="!valid" color="success" @click="validate">Validate</v-btn>
       <v-btn color="error" @click="reset">Reset Form</v-btn>
     </v-form>
-  </v-app>
+  </div>
 </template>
 
 <script>

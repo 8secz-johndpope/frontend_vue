@@ -1,6 +1,6 @@
 <template>
-  <v-content>
-    <v-toolbar app>
+  <span>
+    <v-toolbar>
       <v-toolbar-title class="headline text-uppercase">
         <span>My</span>
         <router-link to="/" class="font-weight-light">Youtube</router-link>
@@ -16,7 +16,7 @@
         <span>Watch</span>
       </v-btn>
     </v-toolbar>
-  </v-content>
+  </span>
 </template>
 
 <script>

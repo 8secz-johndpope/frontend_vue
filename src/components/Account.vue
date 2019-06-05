@@ -9,10 +9,10 @@
       />
     </div>
     <div v-if="!storedJWT">
-      <v-btn @click="clickSignIn" class="btn_allWidth">
+      <v-btn @click="clickSignIn" block>
         <span>Sign In</span>
       </v-btn>
-      <v-btn @click="clickRegister" class="btn_allWidth">
+      <v-btn @click="clickRegister" block>
         <span>Register</span>
       </v-btn>
       <SignIn

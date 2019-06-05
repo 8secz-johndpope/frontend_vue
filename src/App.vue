@@ -65,6 +65,7 @@ div.success {
   color: white;
   display: inline-block;
   vertical-align: middle;
+  width: 100%;
 }
 div.failure {
   background: #ff5555;
@@ -73,6 +74,7 @@ div.failure {
   color: white;
   display: inline-block;
   vertical-align: middle;
+  width: 100%;
 }
 div.loading {
   position: fixed;
@@ -87,9 +89,6 @@ div.loading {
 div.loading h1 {
   margin: auto;
   color: white;
-}
-.btn_allWidth {
-  width: 100%;
 }
 </style>
 
