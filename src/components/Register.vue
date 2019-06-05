@@ -22,7 +22,6 @@ export default {
   props: ["failure"],
   data: () => ({
     valid: true,
-    // failure: false,
     failureMessage: "",
     status: 0,
     loading: false,
@@ -47,9 +46,7 @@ export default {
           /.*[A-Z].*/.test(v) &&
           /.*[a-z].*/.test(v)) ||
         "Password must be at least 6 caracters long and contain at least 1 letter, 1 Maj and 1 number"
-    ],
-    select: null,
-    checkbox: false
+    ]
   }),
   computed: {
     rePassRules: function() {
@@ -119,26 +116,4 @@ export default {
 </script>
 
 <style scoped>
-div.failure {
-  background: #ff5555;
-  text-align: center;
-  border-radius: 3px;
-  color: white;
-  display: inline-block;
-  vertical-align: middle;
-}
-div.loading {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  left: 0;
-  top: 0;
-  background: rgba(51, 51, 51, 0.3);
-  display: flex;
-  z-index: 10;
-}
-div.loading h1 {
-  margin: auto;
-  color: white;
-}
 </style>

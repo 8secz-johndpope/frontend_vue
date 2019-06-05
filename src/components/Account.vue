@@ -1,19 +1,24 @@
 <template>
-  <v-app>
-    <v-app v-if="storedJWT">
-      <MyAccount v-on:disconnectSuccess="refreshAuth"/>
-    </v-app>
-    <v-app v-if="!storedJWT">
-      <v-btn @click="clickSignIn">
+  <div>
+    <div v-if="storedJWT">
+      <MyAccount
+        v-bind:storedName="storedName"
+        v-bind:storedPass="storedPass"
+        v-bind:storedJWT="storedJWT"
+        v-on:disconnectSuccess="$emit('disconnectSuccess')"
+      />
+    </div>
+    <div v-if="!storedJWT">
+      <v-btn @click="clickSignIn" class="btn_allWidth">
         <span>Sign In</span>
       </v-btn>
-      <v-btn @click="clickRegister">
+      <v-btn @click="clickRegister" class="btn_allWidth">
         <span>Register</span>
       </v-btn>
       <SignIn
         v-bind:userCreated="userCreated"
         v-bind:failure="failure"
-        v-on:authSuccess="refreshAuth"
+        v-on:authSuccess="$emit('authSuccess')"
         v-if="indexOfPage == 1"
       />
       <Register
@@ -21,8 +26,8 @@
         v-bind:failure="failure"
         v-if="indexOfPage == 2"
       />
-    </v-app>
-  </v-app>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -36,52 +41,37 @@ export default {
     Register,
     MyAccount
   },
-  computed: {
-    storedName: {
-      get: function() {
-        console.log("getting name :" + newValue);
-        if (localStorage.storedName) {
-          return localStorage.storedName;
-        } else {
-          return "";
-        }
-      },
-      set: function(newValue) {
-        localStorage.storedName = newValue;
-      }
-    },
-    storedPass: {
-      get: function() {
-        if (localStorage.storedPass) {
-          return localStorage.storedPass;
-        } else {
-          return "";
-        }
-      },
-      set: function(newValue) {
-        localStorage.storedPass = newValue;
-      }
-    },
-    storedJWT: {
-      get: function() {
-        if (localStorage.storedJWT) {
-          return localStorage.storedJWT;
-        } else {
-          return "";
-        }
-      },
-      set: function(newValue) {
-        localStorage.storedJWT = newValue;
-      }
-    }
-  },
+  props: ["storedName", "storedPass", "storedJWT"],
   data() {
     return {
       indexOfPage: 1,
       userCreated: false,
       failure: false
+      // storedName: "",
+      // storedPass: "",
+      // storedJWT: ""
     };
   },
+  // computed: {
+  //   storedName: function() {
+  //     if (localStorage.storedName) {
+  //       return localStorage.storedName;
+  //     }
+  //   },
+  //   storedPass: function() {
+  //     if (localStorage.storedPass) {
+  //       return localStorage.storedPass;
+  //     }
+  //   },
+  //   storedJWT: function() {
+  //     if (localStorage.storedJWT) {
+  //       return localStorage.storedJWT;
+  //     }
+  //   }
+  // },
+  // created: function() {
+  //   this.refreshAuth();
+  // },
   methods: {
     addUserSuccess() {
       this.indexOfPage = 1;
