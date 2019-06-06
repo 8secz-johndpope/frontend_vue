@@ -6,7 +6,7 @@
           <v-img
             class="white--text"
             height="200px"
-            src="https://www.cnetfrance.fr/i/edit/2019/04/eso1644bsmall.jpg"
+            src="C:\Users\Yan\Desktop\api_youtube_laravel\API_Laravel\storage\app\videos\5cf90ab3598c5.png"
           ></v-img>
         </v-flex>
         <v-flex xs4>
