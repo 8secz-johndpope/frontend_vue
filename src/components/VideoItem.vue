@@ -6,7 +6,7 @@
           <v-img
             class="white--text"
             height="200px"
-            src="C:\Users\Yan\Desktop\api_youtube_laravel\API_Laravel\storage\app\videos\5cf90ab3598c5.png"
+            :src="'http://127.0.0.1:8000/api/storage/'+video.thumbnail"
           ></v-img>
         </v-flex>
         <v-flex xs4>
@@ -23,7 +23,7 @@
                 <v-btn flat color="grey">Share</v-btn>
               </v-flex>
               <v-flex>
-                <v-btn flat color="red">Delete</v-btn>
+                <v-btn flat @click="deleteVideo(video.id)" color="red">Delete</v-btn>
               </v-flex>
             </v-layout>
           </v-card-actions>
@@ -31,17 +31,17 @@
       </v-layout>
       <v-card-title class="bottomSectionCard blue-grey lighten-5 pt-1" fill-height>
         <v-flex xs12>
-          <v-layout align-content-start>
-            <div class="videoTitle grey--text text--darken-3">{{video.name}}</div>
-          </v-layout>
-        </v-flex>
-        <v-flex xs12>
           <v-layout fill-height class="videoDetails">
             <div class="grey--text text--darken-1">{{video.created_at.substring(0,10)}}</div>
             <v-spacer></v-spacer>
             <div class="grey--text text--darken-1">{{video.view}} views</div>
             <v-spacer></v-spacer>
             <div class="grey--text text--darken-1">{{video.duration}} sec</div>
+          </v-layout>
+        </v-flex>
+        <v-flex xs12>
+          <v-layout align-content-start>
+            <div class="videoTitle grey--text text--darken-3">{{video.name}}</div>
           </v-layout>
         </v-flex>
       </v-card-title>
@@ -52,14 +52,50 @@
 <script>
 export default {
   name: "VideoItem",
-  props: ["video"],
+  props: ["video", "storedJWT"],
   data() {
     return {
       //
     };
   },
   methods: {
-    //
+    deleteVideo(id) {
+      if (confirm("Are you sure you want to delete this video?")) {
+        this.loading = true;
+        var url = "http://127.0.0.1:8000/api/video/" + id;
+        if (this.storedJWT) {
+          console.log(url);
+          fetch(url, {
+            method: "DELETE",
+            headers: {
+              authorization: "Bearer " + this.storedJWT
+            }
+          })
+            .then(res => {
+              this.status = res.status;
+              this.loading = false;
+              return res.json();
+            })
+            .then(res => {
+              console.log(res);
+              if (this.status == 200) {
+                this.$emit("loadVids");
+                this.videos = res.data;
+              } else {
+                this.failureMessage = res.message;
+                this.failure = true;
+              }
+            })
+            .catch(err => {
+              console.log(err.message);
+              this.$emit("loadVids");
+              this.failureMessage = err.message;
+              this.failure = true;
+              this.loading = false;
+            });
+        }
+      }
+    }
   }
 };
 </script>

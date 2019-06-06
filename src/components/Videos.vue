@@ -13,7 +13,13 @@
         </div>
         <v-container fluid>
           <v-layout row wrap fill-height>
-            <VideoItem v-for="video in videos" v-bind:key="video.id" v-bind:video="video"/>
+            <VideoItem
+              v-for="video in videos"
+              v-on:loadVids="loadVideos"
+              v-bind:storedJWT="storedJWT"
+              v-bind:key="video.id"
+              v-bind:video="video"
+            />
           </v-layout>
         </v-container>
       </div>

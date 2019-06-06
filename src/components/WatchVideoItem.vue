@@ -4,16 +4,11 @@
       <v-img
         class="white--text"
         height="200px"
-        src="https://www.cnetfrance.fr/i/edit/2019/04/eso1644bsmall.jpg"
+        :src="'http://127.0.0.1:8000/api/storage/'+video.thumbnail"
       ></v-img>
       <v-card-title class="bottomSectionCard blue-grey lighten-5 pt-1" fill-height>
         <v-layout>
           <v-flex xs10>
-            <v-flex xs12>
-              <v-layout align-content-start>
-                <div class="videoTitle grey--text text--darken-3">{{video.name}}</div>
-              </v-layout>
-            </v-flex>
             <v-flex xs12>
               <v-layout fill-height class="videoDetails">
                 <div class="grey--text text--darken-1">{{video.created_at.substring(0,10)}}</div>
@@ -23,9 +18,14 @@
                 <div class="grey--text text--darken-1">{{video.duration}} sec</div>
               </v-layout>
             </v-flex>
+            <v-flex xs12>
+              <v-layout align-content-start>
+                <div class="videoTitle grey--text text--darken-3">{{video.name}}</div>
+              </v-layout>
+            </v-flex>
           </v-flex>
           <v-flex xs2>
-            <v-btn fab flat color="blue" class="shareBtn">Share</v-btn>
+            <v-btn flat color="grey darken-1" class="shareBtn">Share</v-btn>
           </v-flex>
         </v-layout>
       </v-card-title>
@@ -63,6 +63,8 @@ export default {
   align-content: space-between;
 } */
 .shareBtn {
+  min-width: 0;
+  min-height: 0;
   height: 100%;
   width: 100%;
 }
