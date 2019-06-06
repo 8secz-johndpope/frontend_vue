@@ -1,19 +1,22 @@
 <template>
   <div>
-    <div v-if="loading" class="loading">
-      <h1>Loading</h1>
+    <div v-if="storedJWT">
+      <div v-if="loading" class="loading">
+        <h1>Loading</h1>
+      </div>
+      <h3>Upload file</h3>
+      <div v-if="failure" class="failure">{{failureMessage}}</div>
+      <div v-if="success" class="success">Video uploaded sucessfully</div>
+      <v-form ref="form" v-model="valid" lazy-validation>
+        <v-text-field v-model="title" label="Title" required></v-text-field>
+        <!-- <v-text-field v-model="videoFile" label="Select video" required></v-text-field> -->
+        <v-btn block color="info" @click="selectFile">Select video file</v-btn>
+        <input id="video-upload" type="file" @change="onFileChange">
+        <v-btn :disabled="!valid" color="success" @click="validate">Validate</v-btn>
+        <v-btn color="error" @click="reset">Reset Form</v-btn>
+      </v-form>
     </div>
-    <h3>Upload file</h3>
-    <div v-if="failure" class="failure">{{failureMessage}}</div>
-    <div v-if="success" class="success">Video uploaded sucessfully</div>
-    <v-form ref="form" v-model="valid" lazy-validation>
-      <v-text-field v-model="title" label="Title" required></v-text-field>
-      <!-- <v-text-field v-model="videoFile" label="Select video" required></v-text-field> -->
-      <v-btn block color="info" @click="selectFile">Select video file</v-btn>
-      <input id="video-upload" type="file" @change="onFileChange">
-      <v-btn :disabled="!valid" color="success" @click="validate">Validate</v-btn>
-      <v-btn color="error" @click="reset">Reset Form</v-btn>
-    </v-form>
+    <div v-if="!storedJWT">Please sign in</div>
   </div>
 </template>
 
