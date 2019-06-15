@@ -7,6 +7,7 @@ import Account from "./components/Account.vue";
 import Watch from "./components/Watch.vue";
 import Videos from "./components/Videos.vue";
 import UploadVideo from "./components/UploadVideo.vue";
+import ManageVideo from "./components/ManageVideo.vue";
 
 Vue.use(VueRouter);
 const routes = [

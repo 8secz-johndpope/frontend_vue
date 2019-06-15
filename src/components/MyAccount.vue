@@ -26,6 +26,7 @@
 </template>
 
 <script>
+import { getToken } from "../services/getToken";
 export default {
   name: "MyAccount",
   props: ["storedName", "storedPass", "storedJWT"],
@@ -41,6 +42,7 @@ export default {
       email: "",
       password: "",
       rePassword: "",
+      reloadToken: true,
       nameRules: [
         v =>
           !v || (v && v.length <= 10) || "Name must be less than 10 characters"
@@ -64,6 +66,7 @@ export default {
     }
   },
   methods: {
+    getToken,
     reset() {
       this.name = "";
       this.email = "";
@@ -115,7 +118,17 @@ export default {
               if (this.status == 200) {
                 // this.$emit("addUserSuccess");
                 this.userUpdated = true;
+                this.failure = false;
+              } else if (this.status == 401) {
+                if (this.reloadToken) {
+                  this.getToken();
+                  this.reloadedToken = false;
+                }
+                this.userUpdated = false;
+                this.failureMessage = res.message;
+                this.failure = true;
               } else {
+                this.userUpdated = false;
                 this.failureMessage = res.message;
                 this.failure = true;
               }

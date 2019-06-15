@@ -6,6 +6,7 @@
         v-bind:storedPass="storedPass"
         v-bind:storedJWT="storedJWT"
         v-on:disconnectSuccess="$emit('disconnectSuccess')"
+        v-on:authSuccess="$emit('authSuccess')"
       />
     </div>
     <div v-if="!storedJWT">
@@ -34,6 +35,7 @@
 import SignIn from "./SignIn";
 import Register from "./Register";
 import MyAccount from "./MyAccount";
+import { getToken } from "../services/getToken";
 export default {
   name: "Account",
   components: {

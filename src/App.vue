@@ -43,6 +43,7 @@ export default {
   },
   methods: {
     refreshAuth() {
+      console.log('refreshed');
       this.storedName = localStorage.storedName;
       this.storedPass = localStorage.storedPass;
       this.storedJWT = localStorage.storedJWT;

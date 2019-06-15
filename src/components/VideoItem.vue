@@ -17,7 +17,7 @@
                 <v-btn flat color="blue">View</v-btn>
               </v-flex>
               <v-flex>
-                <v-btn flat color="orange">Manage</v-btn>
+                <v-btn @click="$emit('manageVideo', index)" flat color="orange">Manage</v-btn>
               </v-flex>
               <v-flex>
                 <v-btn flat color="grey">Share</v-btn>
@@ -52,7 +52,7 @@
 <script>
 export default {
   name: "VideoItem",
-  props: ["video", "storedJWT"],
+  props: ["video", "storedJWT", "index"],
   data() {
     return {
       //
