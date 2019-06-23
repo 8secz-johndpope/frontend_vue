@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <NavBar
+      class="navbar_"
       v-bind:storedName="storedName"
       v-bind:storedPass="storedPass"
       v-bind:storedJWT="storedJWT"
@@ -43,7 +44,7 @@ export default {
   },
   methods: {
     refreshAuth() {
-      console.log('refreshed');
+      console.log("refreshed");
       this.storedName = localStorage.storedName;
       this.storedPass = localStorage.storedPass;
       this.storedJWT = localStorage.storedJWT;
@@ -59,6 +60,9 @@ export default {
 </script>
 
 <style>
+.navbar_ {
+  z-index: 5;
+}
 div.success {
   background: #55c1ff;
   text-align: center;

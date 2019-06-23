@@ -35,9 +35,9 @@
               <v-flex>
                 <v-btn flat color="grey">Share</v-btn>
               </v-flex>
-              <v-flex>
+              <!-- <v-flex>
                 <v-btn flat @click="deleteVideo(video.id)" color="red">Delete</v-btn>
-              </v-flex>
+              </v-flex> -->
             </v-layout>
           </v-card-actions>
         </v-flex>

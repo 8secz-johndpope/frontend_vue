@@ -8,6 +8,7 @@ import Watch from "./components/Watch.vue";
 import Videos from "./components/Videos.vue";
 import UploadVideo from "./components/UploadVideo.vue";
 import ManageVideo from "./components/ManageVideo.vue";
+import ViewVideo from "./components/ViewVideo.vue";
 
 Vue.use(VueRouter);
 const routes = [
@@ -30,6 +31,10 @@ const routes = [
     {
         path: "/upload",
         component: UploadVideo
+    },
+    {
+        path: "/view/:id",
+        component: ViewVideo
     }
 ];
 const router = new VueRouter({
