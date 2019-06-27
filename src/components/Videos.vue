@@ -32,6 +32,7 @@
         v-bind:componentId="manageComponent"
         v-bind:video="videos[manageComponent]"
         v-bind:storedJWT="storedJWT"
+        v-on:returnToVideos="returnToVideos"
       />
     </div>
     <div v-if="!storedJWT">Please sign in</div>
@@ -97,10 +98,11 @@ export default {
             } else if (this.status == 401) {
               if (this.reloadToken) {
                 this.getToken();
-                this.reloadedToken = false;
+                this.reloadToken = false;
+              } else {
+                this.failureMessage = res.message;
+                this.failure = true;
               }
-              this.failureMessage = res.message;
-              this.failure = true;
             } else {
               this.failureMessage = res.message;
               this.failure = true;
@@ -138,8 +140,16 @@ export default {
           .then(res => {
             console.log(res);
             if (this.status == 200) {
-              this.$emit("loadVids");
               this.videos = res.data;
+            } else if (this.status == 401) {
+              if (this.reloadToken) {
+                this.getToken();
+                this.reloadToken = false;
+              } else {
+                console.log("no");
+                this.failureMessage = res.message;
+                this.failure = true;
+              }
             } else {
               this.failureMessage = res.message;
               this.failure = true;
@@ -158,6 +168,9 @@ export default {
     manageVideo(videoId) {
       console.log(videoId);
       this.manageComponent = videoId;
+    },
+    returnToVideos() {
+      this.manageComponent = null;
     }
   },
   watch: {

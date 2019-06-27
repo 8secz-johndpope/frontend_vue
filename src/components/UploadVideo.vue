@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { getToken } from "../services/getToken";
 export default {
   name: "UploadVideo",
   props: ["storedName", "storedPass", "storedJWT", "loadedVideos"],
@@ -35,6 +36,7 @@ export default {
     videoFile: ""
   }),
   methods: {
+    getToken,
     reset() {
       this.title = "";
       this.videoFile = "";
@@ -87,6 +89,15 @@ export default {
                 // this.$emit("authSuccess");
                 this.failureMessage = res.message;
                 this.success = true;
+              } else if (this.status == 401) {
+                if (this.reloadToken) {
+                  this.getToken();
+                  this.reloadToken = false;
+                } else {
+                  this.failureMessage = res.message;
+                  this.failure = true;
+                }
+                this.success = false;
               } else {
                 this.failureMessage = res.message;
                 this.failure = true;
@@ -104,6 +115,11 @@ export default {
       } else {
         this.loading = false;
       }
+    }
+  },
+  watch: {
+    storedJWT: function(newVal) {
+      this.validate();
     }
   }
 };

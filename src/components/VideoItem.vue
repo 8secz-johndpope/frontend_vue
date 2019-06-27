@@ -14,7 +14,7 @@
             <v-spacer></v-spacer>
             <v-layout column justify-start>
               <v-flex>
-                <v-btn flat color="blue">View</v-btn>
+                <v-btn :to="/view/ + video.id" flat color="blue">View</v-btn>
               </v-flex>
               <v-flex>
                 <v-btn @click="$emit('manageVideo', index)" flat color="orange">Manage</v-btn>
@@ -50,15 +50,18 @@
 </template>
 
 <script>
+import { getToken } from "../services/getToken";
 export default {
   name: "VideoItem",
   props: ["video", "storedJWT", "index"],
   data() {
     return {
-      //
+      failure: "",
+      failureMessage: ""
     };
   },
   methods: {
+    getToken,
     deleteVideo(id) {
       if (confirm("Are you sure you want to delete this video?")) {
         this.loading = true;
@@ -78,10 +81,20 @@ export default {
             })
             .then(res => {
               console.log(res);
-              if (this.status == 200) {
+              if (this.status == 204) {
                 this.$emit("loadVids");
                 this.videos = res.data;
-              } else {
+              }
+              // else if (this.status == 401) {
+              //   if (this.reloadToken) {
+              //     this.getToken();
+              //     this.reloadToken = false;
+              //   } else {
+              //     this.failureMessage = res.message;
+              //     this.failure = true;
+              //   }
+              // }
+              else {
                 this.failureMessage = res.message;
                 this.failure = true;
               }
@@ -97,6 +110,12 @@ export default {
       }
     }
   }
+  // ,
+  // watch: {
+  //   storedJWT: function(newVal) {
+  //     this.deleteVideo(this.video.id);
+  //   }
+  // }
 };
 </script>
 

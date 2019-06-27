@@ -122,11 +122,12 @@ export default {
               } else if (this.status == 401) {
                 if (this.reloadToken) {
                   this.getToken();
-                  this.reloadedToken = false;
+                  this.reloadToken = false;
+                } else {
+                  this.failureMessage = res.message;
+                  this.failure = true;
                 }
                 this.userUpdated = false;
-                this.failureMessage = res.message;
-                this.failure = true;
               } else {
                 this.userUpdated = false;
                 this.failureMessage = res.message;
@@ -158,6 +159,11 @@ export default {
       }
       localStorage.removeItem("storedJWT");
       this.$emit("disconnectSuccess");
+    }
+  },
+  watch: {
+    storedJWT: function(newVal) {
+      this.validate();
     }
   }
 };
